@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="so">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Warsame Store — Dukaanka Rashiinka</title>
+  <style>
+    :root{--accent:#0b74da;--muted:#6b7280;--card:#ffffff}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f3f4f6;color:#111;margin:0}
+    header{background:linear-gradient(90deg,var(--accent),#06b6d4);color:white;padding:20px}
+    .container{max-width:1100px;margin:24px auto;padding:0 16px}
+    .brand{font-weight:700;font-size:20px}
+    .topbar{display:flex;justify-content:space-between;align-items:center}
+    nav a{color:white;margin-left:12px;text-decoration:none;font-weight:600}
+    .hero{background:white;border-radius:12px;padding:28px;margin-top:18px;display:flex;gap:20px;align-items:center}
+    .hero img{width:220px;border-radius:8px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:18px}
+    .card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.06)}
+    .card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
+    .price{font-weight:700;margin-top:6px}
+    .tag{display:inline-block;background:#eef2ff;color:#3730a3;padding:4px 8px;border-radius:999px;font-size:12px}
+    footer{color:var(--muted);padding:40px 0;text-align:center}
+    button{background:var(--accent);color:white;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
+    .muted{color:var(--muted)}
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:flex;align-items:center;justify-content:center;padding:16px}
+    .panel{background:white;border-radius:10px;padding:18px;max-width:560px;width:100%}
+    .row{display:flex;gap:12px;align-items:center}
+    .admin-btn{background:#111;color:white;padding:8px 10px;border-radius:8px}
+    input,select,textarea{width:100%;padding:8px;border-radius:6px;border:1px solid #e5e7eb}
+    .small{font-size:13px}
+    .pill{padding:4px 8px;border-radius:999px;border:1px solid #e5e7eb}
+    .center{text-align:center}
+    .accept{background:#10b981}
+    .reject{background:#ef4444}
+    .hidden{display:none}
+    @media(max-width:720px){.hero{flex-direction:column;text-align:center}.hero img{width:100%}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <div class="brand">Warsame Store</div>
+      <div>
+        <span class="small">Call: +251905130916</span>
+        <a href="#catalog">Catalog</a>
+        <a href="#contact">La Xiriir</a>
+        <a href="#admin" id="adminNav">Admin</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div style="flex:1">
+        <h1>Warsame Store — Dukaan Rashiin iyo Dharka</h1>
+        <p class="muted">Waxaad ka dalban kartaa mobilo (iPhone, Samsung) iyo dhar kala duwan. Markii aad dalbato, dalabkaaga wuu soo muuqan doonaa admin-ka si loo aqbalo ama loo diido.</p>
+        <p><strong>Email dalabka:</strong> <a href="mailto:khdarupdy2021@gmail.com">khdarupdy2021@gmail.com</a> &nbsp; | &nbsp; <strong>Contact:</strong> +251905130916</p>
+        <div style="margin-top:12px"><button onclick="location.hash='catalog'">Dukaanka Hadda</button></div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="shop">
+    </section>
+
+    <section id="catalog">
+      <h2 style="margin-top:18px">Catalog</h2>
+      <div class="pill small">Mobiles: 10 items</div> <div class="pill small" style="margin-left:8px">Dharka: 30 items</div>
+      <div class="grid" id="productGrid"></div>
+    </section>
+
+    <section id="contact" style="margin-top:22px">
+      <h2>La Xiriir</h2>
+      <div class="card">
+        <p class="small">Email: <a href="mailto:warsamestor@gmail.com">warsamestor@gmail.com</a></p>
+        <p class="small">Telefoon: +251905130916</p>
+        <p class="small muted">Haddii aad su'aal ka qabto dalabka, isticmaal form-ka dalabka hoose ama email u dir khdarupdy2021@gmail.com si dalabka la ogaado.</p>
+      </div>
+    </section>
+
+    <section style="margin-top:22px">
+      <h2>Order Form</h2>
+      <div class="card">
+        <form id="orderForm">
+          <label>Magaca Buuxa</label>
+          <input required id="custName" placeholder="Magacaaga">
+          <label>Email (si dalabka loo soo diro)</label>
+          <input required id="custEmail" type="email" placeholder="email@example.com">
+          <label>Telefoon</label>
+          <input required id="custPhone" placeholder="+251...">
+          <label>Product</label>
+          <select id="prodSelect"></select>
+          <label>Tirada</label>
+          <input type="number" min="1" value="1" id="qty">
+          <label>Note (optional)</label>
+          <textarea id="note" rows="3" placeholder="tusaale: midabka, size ..."></textarea>
+          <div style="margin-top:10px"><button type="submit">Dir Dalabka</button></div>
+        </form>
+      </div>
+    </section>
+
+    <section style="margin-top:24px">
+      <h2>Admin</h2>
+      <p class="muted">Boggan admin wuxuu u baahan yahay email Gmail si marka hore loo diiwaangeliyo. Marka email-kii hore loo diiwaangeliyo, ma lagu beddeli karo boggan (waxaa loo kaydiyaa kombuyuutarka admin-ka sida "registered admin").</p>
+      <div class="card">
+        <div class="row" style="justify-content:space-between">
+          <div>
+            <button id="openAdmin">Tag Admin Page</button>
+          </div>
+          <div id="adminStatus" class="small muted"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div>© Warsame Store — Allright reserved</div>
+    </div>
+  </footer>
+
+  <!-- Admin modal / page -->
+  <div id="adminModal" class="modal hidden">
+    <div class="panel">
+      <h3 class="center">Admin Page</h3>
+      <div id="adminContent"></div>
+      <div style="margin-top:12px" class="center"><button onclick="closeAdmin()">Xidh</button></div>
+    </div>
+  </div>
+
+<script>
+// --- Data: generate products ---
+const products = [];
+// 10 mobiles (iPhone & Samsung mix)
+const mobileNames = ['iPhone 14','iPhone 13','iPhone 12','Samsung S23','Samsung S22','Samsung A54','iPhone 11','Samsung A34','iPhone SE','Samsung Note10'];
+for(let i=0;i<10;i++){products.push({id:'mob'+(i+1),category:'Mobile',name:mobileNames[i],price: Math.floor(250 + Math.random()*650),img:'https://picsum.photos/seed/mob'+i+'/400/300'})}
+// 30 clothes
+const clothTypes = ['Shirt','T-Shirt','Jeans','Khamis','Shalwar','Dhaxeen','Hoodie','Jacket','Kofte','Cap'];
+for(let i=0;i<30;i++){const t = clothTypes[i % clothTypes.length]; products.push({id:'cloth'+(i+1),category:'Clothes',name:`${t} ${i+1}`,price: Math.floor(8 + Math.random()*90),img:'https://picsum.photos/seed/cloth'+i+'/400/300'})}
+
+// render products
+const grid = document.getElementById('productGrid');
+const prodSelect = document.getElementById('prodSelect');
+products.forEach(p=>{
+  const el = document.createElement('div'); el.className='card';
+  el.innerHTML = `<img src="${p.img}" alt="${p.name}"><div style='margin-top:8px'><strong>${p.name}</strong><div class='small muted'>${p.category}</div><div class='price'>$${p.price}</div><div style='margin-top:8px'><button onclick="addToForm('${p.id}')">Dalbo</button></div></div>`;
+  grid.appendChild(el);
+  const opt = document.createElement('option'); opt.value = p.id; opt.textContent = `${p.name} — ${p.category} — $${p.price}`; prodSelect.appendChild(opt);
+})
+
+function addToForm(id){prodSelect.value = id; location.hash='order'; window.scrollTo({top:document.getElementById('orderForm').offsetTop-20,behavior:'smooth'})}
+
+// orders stored in localStorage for demo (pending/accepted/rejected)
+const ORD_KEY = 'warsame_orders_v1';
+function loadOrders(){try{return JSON.parse(localStorage.getItem(ORD_KEY)||'[]')}catch(e){return []}}
+function saveOrders(o){localStorage.setItem(ORD_KEY,JSON.stringify(o))}
+
+// order submit
+const form = document.getElementById('orderForm');
+form.addEventListener('submit', e=>{
+  e.preventDefault();
+  const name = document.getElementById('custName').value.trim();
+  const email = document.getElementById('custEmail').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  const prodId = document.getElementById('prodSelect').value;
+  const qty = Number(document.getElementById('qty').value)||1;
+  const note = document.getElementById('note').value.trim();
+  const p = products.find(x=>x.id==prodId);
+  const order = {id:'ORD'+Date.now(),name,email,phone,product:p?p.name:prodId,price:p?p.price:0,qty,note,status:'pending',created: new Date().toISOString()}
+  const orders = loadOrders(); orders.push(order); saveOrders(orders);
+  // show quick waiting message then inform user
+  showModalMessage('Dalabka waa la diiwaangeliyey — Fadlan sug wakhti gaban, admin-kana wuu eegi doonaa.');
+  // open mailto to notify owner (this will open user's email client) - sends to khdarupdy2021@gmail.com
+  const mailBody = encodeURIComponent(`Order ID: ${order.id}\nMagac: ${order.name}\nEmail: ${order.email}\nPhone: ${order.phone}\nProduct: ${order.product}\nQty: ${order.qty}\nPrice each: $${order.price}\nNote: ${order.note}\nCreated: ${order.created}`)
+  window.open(`mailto:khdarupdy2021@gmail.com?subject=Dalab%20${order.id}&body=${mailBody}`);
+  form.reset();
+})
+
+// --- Admin registration/login logic ---
+// admin is stored as admin_email in localStorage and once set cannot be changed from UI unless localStorage cleared
+const ADMIN_KEY = 'warsame_admin_email_v1';
+function getAdminEmail(){return localStorage.getItem(ADMIN_KEY)}
+function setAdminEmail(email){ if(!getAdminEmail()){ localStorage.setItem(ADMIN_KEY,email); return true } return false }
+
+// Admin UI
+const adminModal = document.getElementById('adminModal');
+const adminContent = document.getElementById('adminContent');
+const adminStatus = document.getElementById('adminStatus');
+function openAdmin(){
+  adminModal.classList.remove('hidden'); renderAdmin();
+}
+function closeAdmin(){adminModal.classList.add('hidden')}
+
+document.getElementById('openAdmin').addEventListener('click', ()=>{ openAdmin() })
+window.openAdmin = openAdmin; window.closeAdmin = closeAdmin;
+
+function renderAdmin(){
+  const admin = getAdminEmail();
+  adminStatus.textContent = admin? `Admin: ${admin}` : 'Admin ma diiwaangashan';
+  if(!admin){
+    adminContent.innerHTML = `<p>Waa inaad marka hore gelisaa Gmail-kaaga si loo diiwaangeliyo sidii admin (Gmail la rabo) — markii la diiwaangeliyo, email-ka ma lagu beddeli karo boggan iyadoo la isticmaalayo UI-ga.
+    </p>
+    <div style='margin-top:8px'><label>Gmail (example@gmail.com)</label><input id='regEmail' placeholder='your@gmail.com'><div style='margin-top:8px'><button id='regBtn'>Diiwaangeli Admin</button></div></div>`;
+    document.getElementById('regBtn').addEventListener('click', ()=>{
+      const v = document.getElementById('regEmail').value.trim();
+      if(!v || !v.includes('@gmail.com')){alert('Fadlan geli Gmail sax ah (domain gmail.com)');return}
+      const ok = setAdminEmail(v.toLowerCase());
+      if(ok){alert('Email-ka waxaa lagu diiwaangeliyey sida admin. Hadda waad gali kartaa.'); renderAdmin();} else {alert('Admin hore ayaa horey loo diiwaangeliyey. Ma bedeli kartid.')}
+    })
+  } else {
+    // admin is registered; show login by entering same email to view admin console
+    adminContent.innerHTML = `<p>Admin la diiwaangeliyey: <strong>${admin}</strong></p>
+      <div><label>Gmail si aad u gasho</label><input id='loginEmail' placeholder='your@gmail.com'></div>
+      <div style='margin-top:8px'><button id='loginBtn'>Gali Admin</button></div>
+      <hr>
+      <div id='adminConsole' class='hidden'></div>`;
+    document.getElementById('loginBtn').addEventListener('click', ()=>{
+      const v = document.getElementById('loginEmail').value.trim().toLowerCase();
+      if(v === admin){ showAdminConsole(); } else { alert('Email sax ah geli si aad u gasho (waa in uu la mid noqdaa emailka la diiwaangeliyey)') }
+    })
+  }
+}
+
+function showAdminConsole(){
+  const consoleDiv = document.getElementById('adminConsole'); consoleDiv.classList.remove('hidden');
+  const orders = loadOrders();
+  let html = `<h4>Pending Orders (${orders.filter(o=>o.status==='pending').length})</h4>`;
+  const pending = orders.filter(o=>o.status==='pending');
+  if(pending.length===0) html += '<div class="small muted">Ma jiraan dalabyo sugaya</div>';
+  pending.forEach(o=>{
+    html += `<div class='card' style='margin-top:8px'><div><strong>${o.product}</strong> — ${o.qty} x $${o.price} <div class='small muted'>ID: ${o.id} — ${new Date(o.created).toLocaleString()}</div></div><div style='margin-top:8px'>Magac: ${o.name} — ${o.phone} — ${o.email}</div><div style='margin-top:8px'>Note: ${o.note||'-'}</div><div style='margin-top:8px'><button class='accept' onclick="adminChange('${o.id}','accepted')">Aqbal</button> <button class='reject' onclick="adminChange('${o.id}','rejected')">Diid</button></div></div>`;
+  })
+  // show accepted and rejected
+  const accepted = orders.filter(o=>o.status==='accepted');
+  html += `<h4 style='margin-top:12px'>Accepted (${accepted.length})</h4>`;
+  accepted.forEach(o=>{ html += `<div class='card small' style='margin-top:8px'>${o.product} — ${o.qty} — ${o.name} — <span class='muted'>${o.id}</span></div>` })
+  const rejected = orders.filter(o=>o.status==='rejected');
+  html += `<h4 style='margin-top:12px'>Rejected (${rejected.length})</h4>`;
+  rejected.forEach(o=>{ html += `<div class='card small' style='margin-top:8px'>${o.product} — ${o.qty} — ${o.name} — <span class='muted'>${o.id}</span></div>` })
+  consoleDiv.innerHTML = html;
+}
+
+window.adminChange = function(orderId,newStatus){
+  const orders = loadOrders();
+  const idx = orders.findIndex(o=>o.id===orderId);
+  if(idx===-1){alert('Order lama helin');return}
+  orders[idx].status = newStatus;
+  saveOrders(orders);
+  showAdminConsole();
+}
+
+function showModalMessage(msg){
+  const old = document.createElement('div'); old.className='modal'; old.innerHTML = `<div class='panel'><div class='center'><h3>${msg}</h3><div style='margin-top:12px'><button onclick='this.closest(\".modal\").remove()'>OK</button></div></div></div>`;
+  document.body.appendChild(old);
+}
+
+// init admin status display on page load
+(function(){ const a = getAdminEmail(); adminStatus.textContent = a? `Admin: ${a}` : 'Admin ma diiwaangashan'; })()
+
+// Hash nav support
+if(location.hash==='#admin') openAdmin();
+</script>
+</body>
+</html>
